@@ -105,18 +105,6 @@ public class Day10{
 }
 */
 
-class Outter{
-    static class Inner{
-        public void fun(){
-
-        }
-    }
-}
-public class Day10{
-    public static void main(String[] args) {
-        Outter in = new Outter();
-    }
-}
 
 
 
