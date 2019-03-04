@@ -7,7 +7,7 @@ import javax.sound.midi.Soundbank;
 public class Test {
     public static void main(String[] args) {
         Sequence sequence = new SequenceArrayImpl(2);
-        //Sequence sequence1 = new SequenceLinkedImpl();
+        //Sequence sequence = new SequenceLinkedImpl();
         sequence.add(1);
         sequence.add(2);
         sequence.add(3);
