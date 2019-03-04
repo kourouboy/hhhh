@@ -143,3 +143,4 @@ public class SequenceLinkedImpl implements Sequence  {
         return temp;
     }
 }
+
