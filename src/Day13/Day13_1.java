@@ -13,8 +13,10 @@ public class Day13_1 {
         charuSort(Day13.SortHelper.copyArray(data));
         binaryInsertSort(Day13.SortHelper.copyArray(data));
         selectionSort(Day13.SortHelper.copyArray(data));
-//          int[] array = new int[] {1,3,2,8,2,5};
-//          binaryInsertSort(data);
+        shellSort(Day13.SortHelper.copyArray(data));
+        mergeSort(Day13.SortHelper.copyArray(data));
+//          int[] data = new int[] {1,3,2,8,2,5};
+//          shellSort(data);
 //          Day13.SortHelper.printArray(data);
     }
 // 4 5 6 1 3 2
@@ -143,10 +145,28 @@ public class Day13_1 {
      */
     public static  void shellSort(int[] array){
         long start = System.currentTimeMillis();
-
-
+            int n = array.length;
+            if ( n == 1){
+                return;
+            }
+            int step = n / 2;
+            while(step >= 1){
+                for (int i = step; i < n; i++) {
+                    int val = array[i];
+                    int j = i - step;
+                    for (;j >= 0;j= j - step){
+                        if(val < array[j]){
+                            array[j + step] = array[j];
+                        }else{
+                            break;
+                        }
+                    }
+                    array[j + step] = val;
+                }
+                step = step / 2;
+            }
         long end  = System.currentTimeMillis();
-        System.out.println("希尔排序总耗时为" + (end - start) + "毫秒");
+        System.out.println("希尔排序总耗时为：" + (end - start) + "毫秒");
     }
     /**
      * 选择排序
@@ -180,26 +200,57 @@ public class Day13_1 {
      * 归并排序
      */
     public static void mergeSort(int[] array){
+        long start = System.currentTimeMillis();
         int n= array.length;
         if(n <= 1){
             return;
         }
         int mid = n / 2;
         mergeInternal(array,0,n-1);
+        long end = System.currentTimeMillis();
+        System.out.println("归并排序总耗时为：" + ((end) - (start)) + "毫秒");
+
     }
-    private static void mergeInternal(int[] array,int low,int high){
-        if(low >= high){
+    private static void mergeInternal(int[] array,int p,int r){
+        if(p >= r){
             return;
         }
-        int mid = (low + (high - low)) / 2;
+        int mid = (p + r) / 2;
         //左边小数组
-        mergeInternal(array,low,mid);
+        mergeInternal(array,p,mid);
         //右边小数组
-        mergeInternal(array,mid +1,high);
+        mergeInternal(array,mid +1,r);
         //合并
-        merge(array,low,mid,high);
+        merge(array,p,mid,r);
     }
-    private static void merge(int[] array,int p,int q,int r){
+    private static void merge(int[] array,int p,int mid,int r){
+        int i = p;
+        int j = mid + 1;
+        int k = 0;
+        int[] temp = new int[r - p + 1];
+        while (i <= mid && j <= r ){
+            if (array[i] < array[j]){
+                temp[k++] = array[i++];
+            }else{
+                temp[k++] = array[j++];
+            }
+        }
+        //判断两个数组中哪个还有元素
+        int start = i ;
+        int end = mid ;
+        //剩下第二个数组
+        if(j <= r){
+            start = j ;
+            end = r;
+        }
+        //将剩余数组拷贝到temp数组
+        while (start <= end){
+            temp[k++] = array[start++];
+        }
+        //将temp数组拷贝到源数组
+        for (int  a= 0; a < r - p; a++) {
+            array[p + a] = temp [a];
+        }
 
     }
 }
