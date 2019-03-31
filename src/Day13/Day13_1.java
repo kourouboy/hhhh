@@ -3,20 +3,21 @@ package Day13;
 import com.sun.javafx.collections.SortHelper;
 
 import javax.jws.soap.SOAPMessageHandlers;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.concurrent.ForkJoinPool;
 
 public class Day13_1 {
     public static void main(String[] args) {
-        int[] data = Day13.SortHelper.generateArray(10000,10,1000000);
-        bubbleSort(Day13.SortHelper.copyArray(data));
+        int[] data = Day13.SortHelper.generateArray(100000,0,100000);
+//        bubbleSort(Day13.SortHelper.copyArray(data));
         charuSort(Day13.SortHelper.copyArray(data));
         binaryInsertSort(Day13.SortHelper.copyArray(data));
-        selectionSort(Day13.SortHelper.copyArray(data));
-        shellSort(Day13.SortHelper.copyArray(data));
-        mergeSort(Day13.SortHelper.copyArray(data));
+//        selectionSort(Day13.SortHelper.copyArray(data));
+//        shellSort(Day13.SortHelper.copyArray(data));
+//        mergeSort(Day13.SortHelper.copyArray(data));
 //          int[] data = new int[] {1,3,2,8,2,5};
-//          shellSort(data);
+//          quickSort(data);
 //          Day13.SortHelper.printArray(data);
     }
 // 4 5 6 1 3 2
@@ -129,7 +130,7 @@ public class Day13_1 {
                     }
                 }
                 //找到插入位置high + 1
-                for (;j >= high + 1 ;j--){
+                for (;j >high;j--){
                     array[j+1] = array[j];
                 }
                 array[j + 1 ] = val;
@@ -211,6 +212,63 @@ public class Day13_1 {
         System.out.println("归并排序总耗时为：" + ((end) - (start)) + "毫秒");
 
     }
+
+    /**
+     *快速排序
+     */
+    public static void quickSort(int[] array){
+//        long start = System.currentTimeMillis();
+        int n = array.length;
+        if(n <= 1){
+            return ;
+        }
+        quickSortInternal(array,0,n-1);
+//        long end = System.currentTimeMillis();
+//        System.out.println("快速排序总耗时为：" + (end - start) + "毫秒");
+   }
+    private static void quickSortInternal(int[] array,int l ,int r){
+        if(l >= r){
+            return;
+        }
+        int v = partition2(array,l,r);
+        quickSortInternal(array,l,v-1);
+        quickSortInternal(array,v+1,r);
+    }
+    private static int partition(int[] array,int l,int r){
+        int randomIndex = (int) ((Math.random() * (r-l+1)) + l);
+        swip(array,l,randomIndex);
+        int v = array[l];
+        int j = l;
+        int i= l + 1;
+        while(i <= r){
+            if( array[i] < v){
+                swip(array,j+1,i);
+                        j++;
+            }
+            i++;
+        }
+        swip(array,l,j);
+        return j;
+    }
+    private static int partition2(int[] array,int l,int r){
+        int randomIndex = (int) ((Math.random() * (r-l+1)) + l);
+        swip(array,l,randomIndex);
+        int v = array[l];
+        int i = l + 1;
+        int j = r;
+        while(true){
+            while(i <= r && array[i] < v) i++;
+            while(j >= l+1 && array[j] > v) j++;
+            if (i > j){
+                break;
+            }
+            swip(array,i,j);
+            i++;
+            j++;
+        }
+        swip(array,l,j);
+        return j;
+    }
     private static void mergeInternal(int[] array,int p,int r){
         if(p >= r){
             return;
@@ -252,5 +310,10 @@ public class Day13_1 {
             array[p + a] = temp [a];
         }
 
+    }
+    private static void swip(int[] array,int indexA,int indexB){
+        int temp = array[indexA];
+        array[indexA] = array[indexB];
+        array[indexB] = temp;
     }
 }

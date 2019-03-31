@@ -111,7 +111,7 @@ package Day17;
 //}
 
 /**
- *方法引用
+ *方法引用  --  引用的方法的具体实现
  */
 //class Person0{
 //    private String name ;
@@ -141,7 +141,7 @@ package Day17;
 //public class Day17_3{
 //    public static void main(String[] args) {
         //----------------------------
-        //引用静态方法
+        //引用某个类的静态方法
 //        IUnn<Integer,String> i = String :: valueOf;//进行方法引用
 //        String str = i.switchPara(12);//相当于调用了String.valueOf(12)
 //        System.out.println(str.length());
@@ -154,7 +154,7 @@ package Day17;
 //        IUnn<Integer,String> i = String :: compareTo;
 //        System.out.println(i.compara("牛","猪"))；
         //----------------------------
-        //引用构造方法
+        //引用某个类的构造方法
 //        IUnn<Person,String,Integer> i = Person :: new;
 //        System.out.println(i.createPerson("zhu",18));
 //    }

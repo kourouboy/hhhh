@@ -5,13 +5,13 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 
 import javax.xml.transform.Result;
 
-public class SequenceLinkedImpl implements Sequence  {
+public class SequenceLinkedImpl implements Sequence {
     //虚拟头节点，不储存元素，专门作为头节点使用。
     private  Node dummyHead;
     private int size;
 
-    public SequenceLinkedImpl(Node dummyHead) {
-        this.dummyHead = new Node(null,null);
+    public SequenceLinkedImpl() {
+        dummyHead = new Node(null,null);
     }
 
     private class Node{
