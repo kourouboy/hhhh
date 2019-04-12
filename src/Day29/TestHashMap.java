@@ -20,6 +20,8 @@ public class TestHashMap {
 //        System.out.println(map.get(8));
         //取得map中所有key的信息    输出是有序的，并且不能重复
 
+        System.out.println(map.keySet());
+
         Set<Integer> set = map.keySet();
         Iterator<Integer> iterator = set.iterator();
         while(iterator.hasNext()){
