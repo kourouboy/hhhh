@@ -7,20 +7,18 @@ public class LinkedQueue<E> implements Queue<E>{
     private static int size;
     private class ListNode{
 
-        E data;
-        ListNode node;
+    E data;
+    ListNode next;
 
-        public ListNode(E data, ListNode node) {
-            this.data = data;
-            this.node = node;
-        }
+    public ListNode(E data, ListNode next) {
+        this.data = data;
+        this.next = next;
     }
-
+}
     @Override
     public void enQueue(E e) {
 
         ListNode listNode = new ListNode(e,null);
-        if ()
     }
 
     @Override
