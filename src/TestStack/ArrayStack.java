@@ -1,5 +1,7 @@
 package TestStack;
 
+import java.util.Arrays;
+
 public class ArrayStack {
     private String[] items; //数组
     private int maxSize; //存放的最大数量
@@ -13,14 +15,22 @@ public class ArrayStack {
     }
     //入栈
     public boolean push(String item){
-        if(currentSize == maxSize){
-            //扩容
+        if(currentSize == maxSize) {
+            //判断
+            int oldCurrent = maxSize;
+            int newCurrent = oldCurrent << 1;
+            //栈大小已经超过int的最大值
+            if (((newCurrent + 8) - Integer.MAX_VALUE) > 0) {
+                return false;
+            }
+            //数组扩容
+            maxSize = newCurrent;
+            items = Arrays.copyOf(items, newCurrent);
 
-            return false;
-        }else{
+        }
             items[currentSize] = item;
             ++currentSize;
-        }
+
         return true;
     }
     //出栈
@@ -44,6 +54,8 @@ public class ArrayStack {
         arrayStack.push("2");
         arrayStack.push("3");
         arrayStack.push("4");
+        arrayStack.push("5");
+        System.out.println(arrayStack.getSize());
         System.out.println(arrayStack.pop());
         System.out.println(arrayStack.getSize());
         System.out.println(arrayStack.pop());
