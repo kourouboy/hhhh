@@ -1,5 +1,10 @@
 package BinaryTree;
 
+import TestQueue.LinkedQueue;
+import TestQueue.Queue;
+
+import java.util.LinkedList;
+
 public class BinSearchTree<E extends Comparable> implements BinTree<E> {
     private class Node {
         E data;
@@ -10,6 +15,8 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
             this.data = data;
         }
     }
+    private Node root;
+    private int size;
     @Override
     public void add(E e) {
 
@@ -27,22 +34,45 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
     @Override
     public void preOrder() {
+        postOrder(root);
+    }
+    private void preOrder(Node node){
+        //终止条件
+        if (node == null)
+            return;
+        System.out.println(node.data);
+        preOrder(node.left);
+        preOrder(node.right);
 
     }
 
     @Override
     public void inOrder() {
-
+        inOrder(root);
+    }
+    private void inOrder(Node node){
+        if (node == null)
+            return;
+        inOrder(node.left);
+        System.out.println(node.data);
+        inOrder(node.right);
     }
 
     @Override
     public void postOrder() {
-
+        postOrder(root);
+    }
+    private void postOrder(Node node){
+        if (node == null)
+            return;
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.data);
     }
 
     @Override
     public void levelOrder() {
-
+        
     }
 
     @Override
