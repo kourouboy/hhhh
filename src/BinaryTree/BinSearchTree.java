@@ -72,7 +72,7 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
     @Override
     public void levelOrder() {
-        
+
     }
 
     @Override
