@@ -1,5 +1,7 @@
 package BinaryTree;
 
+import javax.xml.soap.Node;
+
 public interface BinTree<E> {
     /**
      * 向二叉树中添加元素

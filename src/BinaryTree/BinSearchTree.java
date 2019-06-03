@@ -4,6 +4,7 @@ import TestQueue.LinkedQueue;
 import TestQueue.Queue;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class BinSearchTree<E extends Comparable> implements BinTree<E> {
     private class Node {
@@ -19,17 +20,64 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
     private int size;
     @Override
     public void add(E e) {
-
+        if (root == null){
+            Node node = new Node(e);
+            root = node;
+            size++;
+        }
+        //根据值遍历子树
+        add(root,e);
+    }
+    private void add(Node root ,E e){
+        //终止条件
+        if (e.equals(root.data)){
+            return;
+        }else if (e.compareTo(root.data) < 0 && root.left == null){
+            Node node = new Node(e);
+            node.left = node;
+            size++;
+        }else if (e.compareTo(root.data) > 0 && root.right == null) {
+            Node node = new Node(e);
+            node.right = node;
+            size++;
+        }
+        //左子树递归
+        if (e.compareTo(root.data) < 0){
+            add(root.left,e);
+        }
+        //右子树递归
+        if (e.compareTo(root.data) > 0){
+            add(root.right,e);
+        }
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
     }
 
+    /**
+     * 内部方法，根据值递归检测当前二叉树是否包含指定元素
+     * @param e
+     * @return
+     */
     @Override
     public boolean contains(E e) {
-        return false;
+        return contains(root,e);
+    }
+    private boolean contains(Node root,E e){
+        //终止条件
+        if (root == null){
+            return false;
+        }
+        if (e.equals(root.data)){
+            return true;
+            //左子树递归
+        }else if (e.compareTo(root.data) < 0){
+            return contains(root.left,e);
+        }else {
+            return contains(root.right,e);
+        }
     }
 
     @Override
@@ -44,6 +92,22 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         preOrder(node.left);
         preOrder(node.right);
 
+    }
+
+    /**
+     * 前序遍历非递归版本
+     */
+    public void preOrderNR(){
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()){
+            Node node = stack.pop();
+            System.out.println(node.data);
+            if (node.right != null)
+                stack.push(node.right);
+            if (node.left != null)
+                stack.push(node.left);
+        }
     }
 
     @Override
@@ -70,9 +134,11 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         System.out.println(node.data);
     }
 
+    /**
+     * 基于队列实现的二分搜索树层序遍历
+     */
     @Override
     public void levelOrder() {
-
     }
 
     @Override
