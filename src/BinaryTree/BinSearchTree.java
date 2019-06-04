@@ -1,5 +1,9 @@
 package BinaryTree;
 
+/**
+ * 二叉搜索树
+ */
+
 import TestQueue.LinkedQueue;
 import TestQueue.Queue;
 
