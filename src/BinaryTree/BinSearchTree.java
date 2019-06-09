@@ -10,18 +10,22 @@ import TestQueue.Queue;
 import java.util.LinkedList;
 import java.util.Stack;
 
+/**
+ * 二分搜索树
+ * @param <E>
+ */
 public class BinSearchTree<E extends Comparable> implements BinTree<E> {
     private class Node {
-        E data;
-        Node left;
-        Node right;
+        E data;//存放元素
+        Node left;//左子树
+        Node right;//右子树
 
         public Node(E data) {
             this.data = data;
         }
     }
-    private Node root;
-    private int size;
+    private Node root;//跟节点
+    private int size;//节点个数
     @Override
     public void add(E e) {
         if (root == null){
@@ -32,17 +36,23 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
         //根据值遍历子树
         add(root,e);
     }
+
+    /**
+     * 以指定的root为根节点，插入指定元素e
+     * @param root
+     * @param e
+     */
     private void add(Node root ,E e){
-        //终止条件
+        //插入值刚好是当前根节点的值。终止条件。函数出口
         if (e.equals(root.data)){
             return;
         }else if (e.compareTo(root.data) < 0 && root.left == null){
             Node node = new Node(e);
-            node.left = node;
+            root.left = node;
             size++;
         }else if (e.compareTo(root.data) > 0 && root.right == null) {
             Node node = new Node(e);
-            node.right = node;
+            root.right = node;
             size++;
         }
         //左子树递归
@@ -175,7 +185,7 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
     @Override
     public E removeMin() {
-        return null;
+        return ;
     }
 
     /**

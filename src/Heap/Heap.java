@@ -1,3 +1,4 @@
+/*
 package Heap;
 
 import java.util.Comparator;
@@ -13,7 +14,9 @@ public class Heap<E> {
     public Heap() {
         this(DEAFAULT_SIZE,null);
     }
-    public Heap(int initialCa)
+    public Heap(int initialCa){
+
+    }
 
     public Heap( int size, Comparator<E> comparator) {
         this.size = size;
@@ -25,10 +28,12 @@ public class Heap<E> {
     public int getSize{
 
     }
-    /**
+    */
+/**
      * 调整当前节点在堆中的位置
      * @param index
-     */
+     *//*
+
     private void siftUp(int index){
 
     }
@@ -59,4 +64,12 @@ public class Heap<E> {
             }
         }
     }
+    public Heap(E[] add){
+
+
+
+
+
+    }
 }
+*/

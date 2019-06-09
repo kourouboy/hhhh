@@ -2,6 +2,10 @@ package BinaryTree;
 
 import javax.xml.soap.Node;
 
+/**
+ * 二叉树通用接口
+ * @param <E>
+ */
 public interface BinTree<E> {
     /**
      * 向二叉树中添加元素
