@@ -53,5 +53,11 @@ public interface BinTree<E> {
     E getmax();
     E removeMin();
     E removeMax();
-    boolean remove(E e);
+
+    /**
+     * 移除指定值结点
+     * @param e
+     * @return
+     */
+   void remove(E e);
 }

@@ -4,9 +4,7 @@ package BinaryTree;
  * 二叉搜索树
  */
 
-import TestQueue.LinkedQueue;
-import TestQueue.Queue;
-
+import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -24,8 +22,9 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
             this.data = data;
         }
     }
-    private Node root;//跟节点
+    private Node root;//根节点
     private int size;//节点个数
+
     @Override
     public void add(E e) {
         if (root == null){
@@ -153,12 +152,23 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
      */
     @Override
     public void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            Node node = queue.poll();
+            System.out.println(node.data);
+            if (node.left != null)
+                queue.add(node.left);
+            if (node.right != null)
+                queue.add(node.right);
+        }
     }
 
     @Override
     public E getmin() {
-        if (root == null)
-            System.out.println("Empty");;
+        if (size == 0) {
+            System.out.println("Empty");
+        }
         Node node = getMinNode(root);
         return node.data;
     }
@@ -172,8 +182,9 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
     @Override
     public E getmax() {
-        if (root == null)
+        if (root == null) {
             System.out.println("Empty");
+        }
         Node node = getMaxNode(root);
         return node.data;
     }
@@ -185,7 +196,9 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
     @Override
     public E removeMin() {
-        return ;
+        E result = getmin();
+        root = removeMinNode(root);
+        return result;
     }
 
     /**
@@ -208,7 +221,9 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
 
     @Override
     public E removeMax() {
-        return null;
+        E ret = getmax();
+        root = removeMaxNode(root);
+        return ret;
     }
     private Node removeMaxNode(Node node){
         if (node.right == null){
@@ -222,8 +237,8 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
     }
 
     @Override
-    public boolean remove(E e) {
-        return false;
+    public void remove(E e) {
+        root = removeNode(root,e);
     }
 
     /**
@@ -232,38 +247,45 @@ public class BinSearchTree<E extends Comparable> implements BinTree<E> {
      * @param e
      * @return 删除后的二叉树根节点
      */
-    private Node remove(Node node,E e){
-        if (node == null)
+    private Node removeNode(Node node,E e){
+        if (node == null) {
             return null;
-        if (e.compareTo(node.data) < 0){
-            node.left= remove(node.left,e);
         }
-        if (e.compareTo(node.data) > 0){
-            node.right = remove(node.right,e);
+        //要删除的结点在左子树
+        if (e.compareTo(node.data) < 0){
+            node.left= removeNode(node.left,e);
+            return node;
+        }
+        //要删除的结点在右子树
+        else if (e.compareTo(node.data) > 0){
+            node.right = removeNode(node.right,e);
+            return node;
         }
         //此时node就为需要删除的节点
         else {
-            if (node.left != null && node.right == null){
+            if (node.right == null) {
                 Node leftNode = node.left;
-                size--;
                 node.left = null;
+                size--;
                 return leftNode;
             }
-            if (node.right != null && node.left == null){
+            if (node.left == null) {
                 Node rightNode = node.right;
+                node.right = null;
                 size--;
-                node.left = null;
                 return rightNode;
             }
-            if (node.left != null && node.right != null){
-                //找到前驱后继节点
+            //要删除的结点左右树均有值，找到后继或者前驱结点
+            else {
+                //找到右子树的最小值结点作为后继结点
                 Node successor = getMinNode(node.right);
-                successor.left = node.left;
+                //找到右子树的最小值结点,链到后继结点的右子树
                 successor.right = removeMinNode(node.right);
-                node.right = node.left = null;
+                //将原左子树链到后继结点左子树
+                successor.left = node.left;
+                node.left = node.right = null;
                 return successor;
             }
         }
-        return node;
     }
 }
