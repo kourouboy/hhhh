@@ -1,4 +1,8 @@
 package BinaryTree;
+
+/**
+ * 相同的树
+ */
  class TreeNode4{
       int val;
       TreeNode4 left;
