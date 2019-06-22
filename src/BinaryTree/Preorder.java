@@ -16,7 +16,7 @@ class TreeNode{
         this.val = val;
     }
 }
-public class Preorder {
+public class Preorder{
     List<Integer> list = new ArrayList<>();
     public List<Integer> Preorder(TreeNode root){
         if (root == null)

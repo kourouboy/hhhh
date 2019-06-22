@@ -1,7 +1,7 @@
 package BinaryTree;
 
 /**
- * 二叉树的g=后序遍历；
+ * 二叉树的后序遍历；
  */
 import java.util.ArrayList;
 import java.util.Collections;
